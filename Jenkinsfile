@@ -1,27 +1,18 @@
-pipeline {
-    agent any
-
-    environment {
-        SONARQUBE = 'SonarQube'
-    }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool name: 'SonarQube Scanner', type: 'ToolLocation'
-                    withSonarQubeEnv('SonarQube') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
-            }
-        }
-    }
-}
-
+	pipeline {
+	    agent any
+	
+	    stages {
+	        stage('Build') {
+	            steps {
+	                echo 'Building project...'
+	                // Add build commands here, like compiling or building your app
+	            }
+	        }
+	        stage('Test') {
+	            steps {
+	                echo 'Running tests...'
+	                // Add test commands here, like running unit tests
+	            }
+	        }
+	    }
+	}
