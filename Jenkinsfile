@@ -8,6 +8,7 @@ pipeline {
     
     environment {
         SONARQUBE_URL = 'http://172.26.103.136:9000'
+        SONARQUBE_TOKEN = 'sqa_5750acf482628d59d4d82eb83fe2cc4487785873'
     }
 
     stages {
@@ -29,7 +30,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('SonarQube') {
-                        sh 'mvn sonar:sonar -Dsonar.projectKey=sonarqube-token  -Dsonar.host.url=$SONARQUBE_URL'
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=%SONARQUBE_TOKEN% -Dsonar.host.url=$SONARQUBE_URL'
                     }
                 }
             }
