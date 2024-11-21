@@ -1,18 +1,46 @@
-	pipeline {
-	    agent any
-	
-	    stages {
-	        stage('Build') {
-	            steps {
-	                echo 'Building project...'
-	                // Add build commands here, like compiling or building your app
-	            }
-	        }
-	        stage('Test') {
-	            steps {
-	                echo 'Running tests...'
-	                // Add test commands here, like running unit tests
-	            }
-	        }
-	    }
-	}
+pipeline {
+    agent any
+    
+    tools {
+        maven 'Maven 3.9.9'  
+    }
+    
+    environment {
+        SONARQUBE_URL = 'http://172.26.103.136:9000'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/yuvarajusaikumar/my-project.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                script {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=my_project -Dsonar.host.url=$SONARQUBE_URL'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build and SonarQube analysis completed successfully.'
+        }
+        failure {
+            echo 'The build or analysis failed.'
+        }
+    }
+}
