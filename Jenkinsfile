@@ -15,7 +15,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/yuvarajusaikumar/my-project.git'
             }
         }
-        
+        /*
         stage('Build') {
             steps {
                 script {
@@ -33,6 +33,7 @@ pipeline {
                 }
             }
         }
+        */
     }
 
     post {
