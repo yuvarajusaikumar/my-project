@@ -3,6 +3,7 @@ pipeline {
 
     tools{
         git 'Default Git'
+        maven 'Maven 3.9.9'
     }
     
     environment {
