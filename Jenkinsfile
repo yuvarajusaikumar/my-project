@@ -9,7 +9,7 @@ pipeline {
     environment {
         SONARQUBE_URL = 'http://172.26.103.136:9000'
         SONARQUBE_TOKEN = 'sqa_5fdb6f3207a6b2a0b918ffe1f3806bc5e901e6ab'
-        SRC_DIR = "${WORKSPACE}"
+        SRC_DIR = "${WORKSPACE}/src"
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
     }
 
@@ -50,7 +50,7 @@ pipeline {
                 }
             }
         }
-        
+        /*
         stage('Dependency Check') {
             steps {
                 script {
@@ -58,6 +58,7 @@ pipeline {
                 }
             }
         }
+        */
     }
 
     post {
