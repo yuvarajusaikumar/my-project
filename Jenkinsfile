@@ -9,7 +9,7 @@ pipeline {
     environment {
         SONARQUBE_URL = 'http://172.26.103.136:9000'
         SONARQUBE_TOKEN = 'sqa_5fdb6f3207a6b2a0b918ffe1f3806bc5e901e6ab'
-        SRC_DIR = "${WORKSPACE}/src"
+        SRC_DIR = "${WORKSPACE}"
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
     }
 
@@ -42,6 +42,8 @@ pipeline {
             steps {
                 script {
                     sh "mkdir -p ${REPORT_DIR}"
+                    sh "echo 'Workspace: ${WORKSPACE}'"
+                    sh "ls -al ${WORKSPACE}"
                     docker.image('owasp/dependency-check').inside {
                         sh """
                             dependency-check --project "my-project" --scan ${SRC_DIR}/pom.xml --out ${REPORT_DIR}
