@@ -1,5 +1,9 @@
 pipeline {
     agent any
+
+    tools{
+        git 'Default Git'
+    }
     
     environment {
         SONARQUBE_URL = 'http://172.26.103.136:9000'
