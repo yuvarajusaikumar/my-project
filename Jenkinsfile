@@ -4,6 +4,7 @@ pipeline {
     tools{
         git 'Default Git'
         maven 'Maven'
+        docker 'Docker'
     }
     
     environment {
