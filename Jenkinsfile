@@ -12,17 +12,12 @@ pipeline {
         SONARQUBE_TOKEN = 'sqa_5fdb6f3207a6b2a0b918ffe1f3806bc5e901e6ab'
         SRC_DIR = "${WORKSPACE}"
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
-        PATH = "/usr/bin/docker"
+        PATH = "/usr/bin:$PATH"
         TRIVY_IMAGE = 'aquasec/trivy:latest'  // Trivy Docker image
         IMAGE_NAME = 'ubuntu:latest'          // Container image to scan
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/yuvarajusaikumar/my-project.git'
-            }
-        }
         stage('Docker Access') {
             steps {
                 script {
@@ -30,6 +25,12 @@ pipeline {
                 }
             }
         }
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/yuvarajusaikumar/my-project.git'
+            }
+        }
+        
         stage('Build') {
             steps {
                 script {
