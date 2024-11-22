@@ -58,8 +58,9 @@ pipeline {
                 script {
                     //sh 'docker run --rm -v $(pwd):/src -v $(pwd)/dependency-check-reports:/report owasp/dependency-check --project "my-project" --scan /src/pom.xml --out /report'
                     //dependency-check --project my-project --scan /home/yuvaraju/my-project --out /home/yuvaraju/dependency-check-reports
+                
                     sh """
-                        sudo docker run --rm -v \$(pwd):/src -v \$(pwd)/dependency-check-reports:/report owasp/dependency-check --project "my-project" --scan /my-project/pom.xml --out /report
+                        sudo docker run --rm -v ${pwd()}: /src -v ${pwd()}/dependency-check-reports:/report owasp/dependency-check --project "my-project" --scan /src/pom.xml --out /report
                     """
                 }
             }
