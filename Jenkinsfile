@@ -16,6 +16,13 @@ pipeline {
     }
 
     stages {
+         stage('Check Trivy Installation') {
+            steps {
+                script {
+                    sh 'which trivy || echo "Trivy is not found"'
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/yuvarajusaikumar/my-project.git'
