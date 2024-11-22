@@ -11,7 +11,7 @@ pipeline {
         SONARQUBE_TOKEN = 'sqa_5fdb6f3207a6b2a0b918ffe1f3806bc5e901e6ab'
         SRC_DIR = "${WORKSPACE}"
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
-        TRIVY_HOME = '/snap/bin/trivy'
+        TRIVY_HOME = '/snap/bin'
         IMAGE_NAME = 'ubuntu:latest'          // Container image to scan
     }
 
@@ -61,7 +61,10 @@ pipeline {
         stage('Scan Container with Trivy') {
             steps {
                 script {
-                    sh "trivy image $IMAGE_NAME"
+                    def image = 'ubuntu:latest'
+                    sh """
+                        ${TRIVY_HOME}/trivy image ${image}
+                    """
                 }
             }
         }
