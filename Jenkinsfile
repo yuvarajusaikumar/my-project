@@ -4,7 +4,7 @@ pipeline {
     tools{
         git 'Default Git'
         maven 'Maven'
-        docker 'Docker'
+        //docker 'Docker'
     }
     
     environment {
@@ -12,6 +12,7 @@ pipeline {
         SONARQUBE_TOKEN = 'sqa_5fdb6f3207a6b2a0b918ffe1f3806bc5e901e6ab'
         SRC_DIR = "${WORKSPACE}"
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
+        PATH = "/usr/bin/docker"
         TRIVY_IMAGE = 'aquasec/trivy:latest'  // Trivy Docker image
         IMAGE_NAME = 'ubuntu:latest'          // Container image to scan
     }
@@ -22,10 +23,9 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/yuvarajusaikumar/my-project.git'
             }
         }
-        stage('Verify Docker Access') {
+        stage('Docker Access') {
             steps {
                 script {
-                    // Run Docker command to check version
                     sh 'docker --version'
                 }
             }
