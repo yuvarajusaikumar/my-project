@@ -4,7 +4,6 @@ pipeline {
     tools{
         git 'Default Git'
         maven 'Maven'
-        //docker 'Docker'
     }
     
     environment {
@@ -12,19 +11,11 @@ pipeline {
         SONARQUBE_TOKEN = 'sqa_5fdb6f3207a6b2a0b918ffe1f3806bc5e901e6ab'
         SRC_DIR = "${WORKSPACE}"
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
-        PATH = "/usr/bin:$PATH"
-        TRIVY_IMAGE = 'aquasec/trivy:latest'  // Trivy Docker image
+        TRIVY_HOME = '/snap/bin/trivy'
         IMAGE_NAME = 'ubuntu:latest'          // Container image to scan
     }
 
     stages {
-        stage('Docker Access') {
-            steps {
-                script {
-                    sh 'docker --version'
-                }
-            }
-        }
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/yuvarajusaikumar/my-project.git'
@@ -56,7 +47,7 @@ pipeline {
                 }
             }
         }
-        */
+        
         stage('Scan Container Image with Trivy') {
             steps {
                 script {
@@ -66,8 +57,15 @@ pipeline {
                 }
             }
         }
+        */
+        stage('Scan Container with Trivy') {
+            steps {
+                script {
+                    sh "trivy image $IMAGE_NAME"
+                }
+            }
+        }
     }
-
     post {
         success {
             echo 'Build and SonarQube analysis completed successfully.'
