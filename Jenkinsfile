@@ -11,7 +11,7 @@ pipeline {
         SONARQUBE_TOKEN = 'sqa_5fdb6f3207a6b2a0b918ffe1f3806bc5e901e6ab'
         SRC_DIR = "${WORKSPACE}"
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
-        TRIVY_HOME = '/snap/bin'
+        PATH = "/snap/bin:/usr/local/bin:$PATH"
         IMAGE_NAME = 'ubuntu:latest'          // Container image to scan
     }
 
