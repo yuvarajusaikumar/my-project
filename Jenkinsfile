@@ -12,7 +12,7 @@ pipeline {
         SRC_DIR = "${WORKSPACE}"
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
     }
-
+/*
     stages {
         stage('Checkout') {
             steps {
@@ -37,7 +37,7 @@ pipeline {
                 }
             }
         }
-/*
+
         stage('Run Dependency Check') {
             steps {
                 script {
