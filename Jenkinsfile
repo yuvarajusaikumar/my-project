@@ -21,7 +21,6 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/yuvarajusaikumar/my-project.git'
             }
         }
-        stages {
         stage('Verify Docker Access') {
             steps {
                 script {
