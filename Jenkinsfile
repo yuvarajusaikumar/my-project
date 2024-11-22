@@ -14,7 +14,7 @@ pipeline {
         PATH = "/snap/bin:/usr/local/bin:$PATH"
         IMAGE_NAME = 'ubuntu:latest'          // Container image to scan
     }
-
+    
     stages {
          stage('Check Trivy Installation') {
             steps {
