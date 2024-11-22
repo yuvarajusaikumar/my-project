@@ -12,7 +12,7 @@ pipeline {
         SRC_DIR = "${WORKSPACE}"
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
     }
-/*
+
     stages {
         stage('Checkout') {
             steps {
@@ -37,35 +37,16 @@ pipeline {
                 }
             }
         }
-
+        
+        /*
         stage('Run Dependency Check') {
             steps {
                 script {
-                    sh "mkdir -p ${REPORT_DIR}"
-                    sh "echo 'Workspace: ${WORKSPACE}'"
-                    sh "ls -al ${WORKSPACE}"
-                    docker.image('owasp/dependency-check').inside {
-                        sh """
-                            dependency-check --project "my-project" --scan ${SRC_DIR}/pom.xml --out ${REPORT_DIR}
-                        """
-                    }
+                    sh 'docker run --rm -v $(pwd):/src -v $(pwd)/dependency-check-reports:/report owasp/dependency-check --project "my-project" --scan /src/pom.xml --out /report'
                 }
             }
         }
         */
-        stage('Dependency Check') {
-            steps {
-                script {
-                    //sh 'docker run --rm -v $(pwd):/src -v $(pwd)/dependency-check-reports:/report owasp/dependency-check --project "my-project" --scan /src/pom.xml --out /report'
-                    //dependency-check --project my-project --scan /home/yuvaraju/my-project --out /home/yuvaraju/dependency-check-reports
-                
-                    sh """
-                        docker run --rm -v ${pwd()}: /src -v ${pwd()}/dependency-check-reports:/report owasp/dependency-check --project "my-project" --scan /src/pom.xml --out /report
-                    """
-                }
-            }
-        }
-
     }
 
     post {
