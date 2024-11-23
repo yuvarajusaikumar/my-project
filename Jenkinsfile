@@ -12,17 +12,10 @@ pipeline {
         SRC_DIR = "${WORKSPACE}"
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
         PATH = "/snap/bin:/usr/local/bin:$PATH"
-        IMAGE_NAME = 'ubuntu:latest'          // Container image to scan
+        IMAGE_NAME = 'hello-world:latest'
     }
     
     stages {
-         stage('Check Trivy Installation') {
-            steps {
-                script {
-                    sh 'which trivy || echo "Trivy is not found"'
-                }
-            }
-        }
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/yuvarajusaikumar/my-project.git'
@@ -69,9 +62,8 @@ pipeline {
         stage('Scan Container with Trivy') {
             steps {
                 script {
-                    def image = 'ubuntu:latest'
                     sh """
-                        trivy image ${image}
+                        trivy image ${env.IMAGE_NAME}
                     """
                 }
             }
