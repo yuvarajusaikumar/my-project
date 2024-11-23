@@ -62,8 +62,9 @@ pipeline {
         stage('Scan Container with Trivy') {
             steps {
                 script {
+                    // Add '--scanners vuln' to disable secret scanning and speed up the scan
                     sh """
-                        trivy image ${env.IMAGE_NAME}
+                        trivy image --scanners vuln ${env.IMAGE_NAME}
                     """
                 }
             }
