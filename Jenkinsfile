@@ -47,6 +47,7 @@ pipeline {
             }
         }
         /*
+        this was usinf docker in docker so won't work
         stage('Run Dependency Check') {
             steps {
                 script {
@@ -70,7 +71,7 @@ pipeline {
                 script {
                     def image = 'ubuntu:latest'
                     sh """
-                        ${TRIVY_HOME}/trivy image ${image}
+                        trivy image ${image}
                     """
                 }
             }
