@@ -22,6 +22,15 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/yuvarajusaikumar/my-project.git'
             }
         }
+
+        stage('Gitleaks Scan') {
+            steps {
+                script {
+                    def gitRepo = '/var/jenkins_home/workspace/my-project-pipeline/my-project'
+                    sh "gitleaks detect --source=${gitRepo} --report-path=${WORKSPACE}/gitleaks-report.json"
+                }
+            }
+        }
         
         stage('Build') {
             steps {
