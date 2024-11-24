@@ -39,6 +39,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Dependency-Check Scan and Save Report') {
+            steps {
+                script {
+                    sh 'mvn org.owasp:dependency-check-maven:check'
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'target/dependency-check-report*.html', onlyIfSuccessful: true
+                }
+            }
+        }
         /*
         this was usinf docker in docker so won't work
         stage('Run Dependency Check') {
@@ -59,6 +68,7 @@ pipeline {
             }
         }
         */
+        
         stage('Scan Container with Trivy') {
             steps {
                 script {
