@@ -13,6 +13,7 @@ pipeline {
         REPORT_DIR = "${WORKSPACE}/dependency-check-reports"
         PATH = "/snap/bin:/usr/local/bin:$PATH"
         IMAGE_NAME = 'hello-world:latest'
+        MAVEN_OPTS = '-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400' // Set heartbeat check interval
     }
     
     stages {
@@ -82,10 +83,10 @@ pipeline {
     }
     post {
         success {
-            echo 'Build and SonarQube analysis completed successfully.'
+            echo 'Build completed successfully.'
         }
         failure {
-            echo 'The build or analysis failed.'
+            echo 'The build failed.'
         }
     }
 }
