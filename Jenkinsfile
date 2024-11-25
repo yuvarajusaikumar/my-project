@@ -55,6 +55,7 @@ pipeline {
                 script {
                     sh 'mvn org.owasp:dependency-check-maven:check'
                     archiveArtifacts allowEmptyArchive: true, artifacts: 'target/dependency-check-report*.html', onlyIfSuccessful: true
+                    //sh 'mvn org.owasp:dependency-check-maven:check -Ddependency-check.reportPath=/var/jenkins_home/workspace/my-project-pipeline/dependency-check-reports/dependency-check-report.xml'
                 }
             }
         }
